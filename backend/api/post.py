@@ -19,7 +19,7 @@ def get_all_posts(db: Session = Depends(get_db)):
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-def create_post(request: schemas.Post, db: Session = Depends(get_db)):
+def create_post(request: schemas.PostCreate, db: Session = Depends(get_db)):
     """POST - Post"""
     try:
         new_post = models.Post(title=request.title, body=request.body)
