@@ -36,7 +36,7 @@ def get_post(id: int, db: Session = Depends(get_db)):
     """GET <id> - Post"""
     post = db.query(models.Post).filter(models.Post.id == id).first()
     if not post:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No post available with id - {id}")
     return post
 
 
@@ -45,7 +45,7 @@ def update_post(id: int, request: schemas.Post, db: Session = Depends(get_db)):
     """PUT <id> - Post"""
     post = db.query(models.Post).filter(models.Post.id == id)
     if not post.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No post available with id - {id}")
 
     post.update({"title": request.title, "body": request.body})
     db.commit()
@@ -57,7 +57,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     """DELETE <id> - Post"""
     post = db.query(models.Post).filter(models.Post.id == id)
     if not post.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No post available with id - {id}")
 
     post.delete(synchronize_session=False)
     db.commit()
