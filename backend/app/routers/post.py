@@ -12,9 +12,9 @@ router = APIRouter(
 
 
 @router.get("/", response_model=List[schemas.Post])
-def get_all_posts(db: Session = Depends(get_db)):
-    """GET - Posts"""
-    posts = db.query(models.Post).all()
+def get_all_posts(db: Session = Depends(get_db), skip: int = 0, limit: int = 10):
+    """GET - Posts with pagination"""
+    posts = db.query(models.Post).offset(skip).limit(limit).all()
     return posts
 
 
@@ -36,16 +36,16 @@ def get_post(id: int, db: Session = Depends(get_db)):
     """GET <id> - Post"""
     post = db.query(models.Post).filter(models.Post.id == id).first()
     if not post:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No post available with id - {id}")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post not found with id - {id}")
     return post
 
 
 @router.put("/{id}", status_code=status.HTTP_202_ACCEPTED)
-def update_post(id: int, request: schemas.Post, db: Session = Depends(get_db)):
+def update_post(id: int, request: schemas.PostUpdate, db: Session = Depends(get_db)):
     """PUT <id> - Post"""
     post = db.query(models.Post).filter(models.Post.id == id)
     if not post.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No post available with id - {id}")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post not found with id - {id}")
 
     post.update({"title": request.title, "body": request.body})
     db.commit()
@@ -57,7 +57,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     """DELETE <id> - Post"""
     post = db.query(models.Post).filter(models.Post.id == id)
     if not post.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No post available with id - {id}")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post not found with id - {id}")
 
     post.delete(synchronize_session=False)
     db.commit()
