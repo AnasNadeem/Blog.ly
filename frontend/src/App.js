@@ -1,10 +1,13 @@
-import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './Pages/Home';
 
-function App() {
+
+const App = () => {
+  const router = createBrowserRouter([
+    { name: 'Home', path: '/', element: <Home /> },
+  ]);
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello World!
-    </h1>
+    <RouterProvider router={router} />
   );
 }
 
