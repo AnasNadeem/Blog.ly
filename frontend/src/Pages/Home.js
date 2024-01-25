@@ -62,6 +62,11 @@ const Home = () => {
 
   return (
     <div className="container mt-3 mx-auto px-4 md:px-12">
+      {/* Create new post */}
+      <div className="flex justify-end">
+        <a href="/new-post" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create New Post</a>
+      </div>
+
       <Table
         columns={columns}
         data={posts}
