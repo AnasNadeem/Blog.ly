@@ -1,74 +1,61 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { flexRender, useReactTable, getCoreRowModel } from "@tanstack/react-table";
+import Loader from './Loader';
 
-const Table = () => {
-  return (
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                  <th scope="col" class="px-6 py-3">
-                      Title
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                      Created At
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                      Updated At
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                      <span class="sr-only">Read More</span>
-                  </th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      Apple MacBook Pro 17"
-                  </th>
-                  <td class="px-6 py-4">
-                      Silver
-                  </td>
-                  <td class="px-6 py-4">
-                      Laptop
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Read More
-                      </a>
-                  </td>
-              </tr>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      Microsoft Surface Pro
-                  </th>
-                  <td class="px-6 py-4">
-                      White
-                  </td>
-                  <td class="px-6 py-4">
-                      Laptop PC
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read More</a>
-                  </td>
-              </tr>
-              <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      Magic Mouse 2
-                  </th>
-                  <td class="px-6 py-4">
-                      Black
-                  </td>
-                  <td class="px-6 py-4">
-                      Accessories
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read More</a>
-                  </td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
-  )
+
+const Table = ({ columns, data, isLoading=false, manualPagination=false}) => {
+    const finalColumns = useMemo(() => columns, [columns])
+    const finalData = useMemo(() => data, [data])
+
+    const tableInstance = useReactTable({
+        columns: finalColumns,
+        data: finalData,
+        getCoreRowModel: getCoreRowModel(),
+        manualPagination: manualPagination,
+    })
+
+    return (
+        <>
+        {isLoading
+        ? <Loader />
+        : (
+            <div
+                className="shadow border-b border-gray-200 sm:rounded-lg max-h-[25rem] overflow-y-auto overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                        {tableInstance.getHeaderGroups().map(headerGroup => (
+                            <tr key={headerGroup.id}>
+                            {headerGroup.headers.map(header => (
+                                <th key={header.id}
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {header.isPlaceholder
+                                    ? null
+                                    : flexRender(
+                                        header.column.columnDef.header,
+                                        header.getContext()
+                                    )}
+                                </th>
+                            ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200 ">
+                        {tableInstance.getRowModel().rows.map(row => (     
+                            <tr key={row.id}>
+                                {row.getVisibleCells().map(cell => (
+                                    <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm text-gray-900">
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </div>
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )}
+        </>
+    )
 }
-
-export default Table
+export default Table;
