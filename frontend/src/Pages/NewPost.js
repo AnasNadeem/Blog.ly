@@ -40,6 +40,7 @@ const NewPost = () => {
           <h2 className="text-2xl font-semibold mb-6">Create New Post</h2>
 
           <form onSubmit={handleSubmit}>
+          {error && <p className="text-center text-red-500 text-xs italic mb-2">{error}</p>}
             <div className="mb-4">
               <label for="title" className="block text-sm font-medium text-gray-600 mb-2">Title</label>
               <input

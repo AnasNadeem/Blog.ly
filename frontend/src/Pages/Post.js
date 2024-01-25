@@ -47,7 +47,12 @@ return (
             {isLoading
             ? <Loader />
             : error
-            ? <p>Error: {error.message}</p>
+            ? (
+                <div className="flex flex-col justify-center items-center">
+                    <h1 className="text-4xl font-semibold mb-2">Error 404</h1>
+                    <p className="text-gray-600">Page not found</p>
+                </div>
+            )
             : (
                 <div className="container mx-auto mt-8">
                     <div className="max-w-3xl mx-auto bg-white p-8 rounded-md shadow-lg relative">
