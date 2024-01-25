@@ -20,7 +20,7 @@ const Table = ({ columns, data, isLoading=false, manualPagination=false}) => {
         ? <Loader />
         : (
             <div
-                className="shadow border-b border-gray-200 sm:rounded-lg max-h-[35rem] overflow-y-auto overflow-x-auto">
+                className="shadow border-b border-gray-200 sm:rounded-lg max-h-[32rem] overflow-y-auto overflow-x-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         {tableInstance.getHeaderGroups().map(headerGroup => (

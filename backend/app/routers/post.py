@@ -19,14 +19,17 @@ router = APIRouter(
 
 
 @router.get("/", response_model=AllPost)
-def get_all_posts(db: Session = Depends(get_db), limit: int = 10, offset: int = 0,):
+def get_all_posts(db: Session = Depends(get_db), limit: int = 10, offset: int = 0, search: str = None):
     """GET - Posts with pagination"""
     posts = (db.query(PostModel)
+             .filter(PostModel.title.icontains(search if search else ""))
+             )
+    total = posts.count()
+    posts = (posts
              .limit(limit)
              .offset(offset)
              .all()
              )
-    total = db.query(PostModel).count()
     return AllPost(total=total, limit=limit, offset=offset, posts=posts)
 
 
