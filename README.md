@@ -21,7 +21,17 @@ Now Open Terminal or Shell.
 2. ```python3 -m venv env```
 3. If on mac or linux: ```source env/bin/activate```. Windows: ```.\env\scripts\activate```
 4. ```python -m pip install -r requirements.txt ```
-5. ```uvicorn app.main:app --reload ```
+5. Go to your postgres db and create a db.
+6. Create .env file in route and the following information:
+```
+db_username=postgres
+db_password=
+db_hostname=localhost
+db_port=5432
+db_name=
+```
+7. ```alembic upgrade head```
+8. ```uvicorn app.main:app --reload ```
 
 #### Frontend Setup:
 1. ```Go back to main directory and cd frontend```
@@ -42,9 +52,9 @@ You should have the server started on port 3000. Enjoy 🎉
 ### Backend Endpoints:
 
 ``` 
- Blog [GET] - /posts
- Blog [POST] - /posts
- Blog [GET:id] - /posts/:id
- Blog [PUT:id] - /posts/:id
- Blog [DELETE:id] - /posts/:id
+ Blog [GET] - api/posts
+ Blog [POST] - api/posts
+ Blog [GET:id] - api/posts/:id
+ Blog [PUT:id] - api/posts/:id
+ Blog [DELETE:id] - api/posts/:id
 ```
