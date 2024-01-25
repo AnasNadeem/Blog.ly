@@ -4,14 +4,15 @@ import Table from './Components/Table'
 import { BASE_URL } from '../Api'
 import Navbar from './Components/Navbar'
 import { dateTimeFormatter } from '../Utils'
+import PaginationComponent from './Components/Pagination'
 
 const Home = () => {
   // {total: int, posts: [], limit: int, offset: int}
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [total, setTotal] = useState(0)
   const [limit, setLimit] = useState(10)
-  const [offset, setOffset] = useState(0)
+  const [total, setTotal] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const columns = [
     // title, created_at, updated_at, Read More
@@ -44,8 +45,9 @@ const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}?limit=${limit}&offset=${offset}`)
-        const { data } = response
+        // Calculate offset on the basis of current page
+        const offset = (currentPage - 1) * limit
+        const { data } = await axios.get(`${BASE_URL}?limit=${limit}&offset=${offset}`)
         setPosts(data.posts)
         setTotal(data.total)
         setIsLoading(false)
@@ -53,9 +55,9 @@ const Home = () => {
         console.log(error)
       }
     }
-
     fetchPosts()
-  }, [limit, offset])
+  }
+  , [currentPage])
 
   return (
     <div>
@@ -66,6 +68,14 @@ const Home = () => {
           data={posts}
           isLoading={isLoading}
         />
+        {total > 0 && (
+          <PaginationComponent
+            currentPage={currentPage}
+            pageChangeHandler={setCurrentPage}
+            limit={limit}
+            totalCount={total}
+          />
+        )}
       </div>
     </div>
   )
