@@ -5,6 +5,7 @@ import { BASE_URL } from '../Api'
 import Navbar from './Components/Navbar'
 import { dateTimeFormatter } from '../Utils'
 import PaginationComponent from './Components/Pagination'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Home = () => {
   // {total: int, posts: [], limit: int, offset: int}
@@ -17,6 +18,7 @@ const Home = () => {
   // Filtering
   const [search, setSearch] = useState('')
 
+  const navigate = useNavigate()
   const columns = [
     // title, created_at, updated_at, Read More
     {
@@ -35,10 +37,12 @@ const Home = () => {
       header: 'Actions',
       cell: (data) => {
         return (
-          <a href={`/posts/${data.row.original.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+          <Link
+          to={`/posts/${data.row.original.id}`}
+          className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
             Read More
             <i className="fas fa-arrow-right ml-1"></i>
-          </a>
+          </Link>
         )
       }
     },

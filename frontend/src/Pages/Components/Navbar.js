@@ -1,11 +1,10 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
-    const navigate = useNavigate()
   return (
     <nav className="flex justify-between items-center h-16 bg-white text-black relative shadow-sm font-mono" role="navigation">
-        <a href="/" className="pl-8">Blog.ly</a>
+        <Link to="/" className="pl-8">Blog.ly</Link>
         <div className="px-4 cursor-pointer md:hidden">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
             xmlns="http://www.w3.org/2000/svg">
@@ -14,10 +13,12 @@ const Navbar = () => {
             </svg>
         </div>
         <div className="pr-8 md:block hidden">
-            <button onClick={() => navigate('/new-post')}
-            className="p-2 bg-gray-800 text-white py-2 w-full rounded-md hover:bg-gray-700 focus:outline-none">    
-            New Post
-            </button>
+            <Link
+                to="/new-post"
+                className="p-2 bg-gray-800 text-white py-2 w-full rounded-md hover:bg-gray-700 focus:outline-none"
+            >
+                New Post
+            </Link>
         </div>
     </nav>
   )

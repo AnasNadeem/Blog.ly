@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { deletePost, getPostId } from '../Api'
 import Loader from './Components/Loader'
 import Navbar from './Components/Navbar'
@@ -58,11 +58,11 @@ return (
                     <div className="max-w-3xl mx-auto bg-white p-8 rounded-md shadow-lg relative">
 
                     <div className="absolute top-4 right-8 flex space-x-4">
-                        <a 
-                        href={`/posts/${post.id}/edit`} 
+                        <Link
+                        to={`/posts/${post.id}/edit`}
                         className="text-blue-500 hover:text-blue-700">
                             <i className="fas fa-edit"></i> Edit
-                        </a>
+                        </Link>
                         <a 
                         href="#"
                         onClick={handleDelete} 
