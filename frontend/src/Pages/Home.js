@@ -28,11 +28,12 @@ const Home = () => {
       header: 'Updated At',
     },
     {
-      header: 'Read More',
+      header: 'Actions',
       cell: (data) => {
         return (
           <a href={`/posts/${data.row.original.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
             Read More
+            <i className="fas fa-arrow-right ml-1"></i>
           </a>
         )
       }

@@ -79,7 +79,7 @@ const EditPost = () => {
               />
             </div>
 
-            <button type="submit" class="bg-gray-800 text-white py-2 w-full rounded-md hover:bg-gray-700 focus:outline-none">
+            <button type="submit" className="bg-gray-800 text-white py-2 w-full rounded-md hover:bg-gray-700 focus:outline-none">
               Edit Post
             </button>
           </form>

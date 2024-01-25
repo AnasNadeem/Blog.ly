@@ -15,8 +15,8 @@ const Navbar = () => {
         </div>
         <div className="pr-8 md:block hidden">
             <button onClick={() => navigate('/new-post')}
-            className="p-4">
-                New Post
+            className="p-2 bg-gray-800 text-white py-2 w-full rounded-md hover:bg-gray-700 focus:outline-none">    
+            New Post
             </button>
         </div>
     </nav>

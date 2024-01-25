@@ -52,7 +52,7 @@ return (
                 <div className="container mx-auto mt-8">
                     <div className="max-w-3xl mx-auto bg-white p-8 rounded-md shadow-lg relative">
 
-                    <div className="absolute top-4 right-4 flex space-x-2">
+                    <div className="absolute top-4 right-8 flex space-x-4">
                         <a 
                         href={`/posts/${post.id}/edit`} 
                         className="text-blue-500 hover:text-blue-700">
@@ -66,7 +66,7 @@ return (
                         </a>
                     </div>
 
-                    <img src="https://source.unsplash.com/random" alt="Blog Post Image" className="w-full h-64 object-cover mb-6 mt-2 rounded-md" />
+                    <img src="https://source.unsplash.com/random" alt="Blog Post Image" className="w-full h-64 object-cover mb-6 mt-3 rounded-md" />
 
                     <h1 className="text-3xl font-semibold mb-4">{post.title}</h1>
 
