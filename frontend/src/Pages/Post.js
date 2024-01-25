@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { deletePost, getPostId } from '../Api'
 import Loader from './Components/Loader'
-
+import Navbar from './Components/Navbar'
+import { dateTimeFormatter } from '../Utils'
 
 const Post = () => {
     const { id } = useParams()
@@ -40,37 +41,49 @@ const Post = () => {
 
 return (
     // Blog page
-    <div className="flex flex-col justify-center items-center">
-        {isLoading
-        ? <Loader />
-        : error
-        ? <p>Error: {error.message}</p>
-        : (
-            <div className="flex flex-col justify-center items-center">
-                <div className="flex flex-col justify-center items-center">
-                    <h1 className="text-4xl font-bold text-gray-700 dark:text-gray-200">{post.title}</h1>
-                    <p className="text-gray-500 dark:text-gray-400">admin</p>
-                </div>
+    <div>
+        <Navbar />
+        <div className="flex flex-col justify-center items-center">
+            {isLoading
+            ? <Loader />
+            : error
+            ? <p>Error: {error.message}</p>
+            : (
+                <div className="container mx-auto mt-8">
+                    <div className="max-w-3xl mx-auto bg-white p-8 rounded-md shadow-lg relative">
 
-                <div className="flex flex-col justify-center items-center">
-                  <a href={`/posts/${post.id}/edit`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</a>
-                  <button
-                  onClick={handleDelete}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
-                </div>
+                    <div className="absolute top-4 right-4 flex space-x-2">
+                        <a 
+                        href={`/posts/${post.id}/edit`} 
+                        className="text-blue-500 hover:text-blue-700">
+                            <i className="fas fa-edit"></i> Edit
+                        </a>
+                        <a 
+                        href="#"
+                        onClick={handleDelete} 
+                        className="text-red-500 hover:text-red-700">
+                            <i className="fas fa-trash-alt"></i> Delete
+                        </a>
+                    </div>
 
-                <div className="flex flex-col justify-center items-center">
-                    <p className="text-gray-500 dark:text-gray-400">Published on {post.created_at}</p>
-                </div>
-                <div className="flex flex-col justify-center items-center">
-                    <img className="w-full" src="https://source.unsplash.com/random" alt="random" />
-                </div>
+                    <img src="https://source.unsplash.com/random" alt="Blog Post Image" className="w-full h-64 object-cover mb-6 mt-2 rounded-md" />
 
-                <div className="flex flex-col justify-center items-center">
-                    <p className="text-gray-500 dark:text-gray-400">{post.body}</p>
+                    <h1 className="text-3xl font-semibold mb-4">{post.title}</h1>
+
+                    <div className="text-gray-600 text-sm mb-4">
+                        <span>By Anas Nadeem</span>
+                        <span className="mx-2">•</span>
+                        <span>Published on {dateTimeFormatter(post.created_at)}</span>
+                    </div>
+
+                    <div className="prose">
+                        <p>{post.body}</p>
+                    </div>
+
+                    </div>
                 </div>
-            </div>
-        )}
+            )}
+        </div>
     </div>
   )
 }

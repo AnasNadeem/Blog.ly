@@ -2,6 +2,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Table from './Components/Table'
 import { BASE_URL } from '../Api'
+import Navbar from './Components/Navbar'
+import { dateTimeFormatter } from '../Utils'
 
 const Home = () => {
   // {total: int, posts: [], limit: int, offset: int}
@@ -18,17 +20,11 @@ const Home = () => {
       header: 'Title',
     },
     {
-      accessorFn: (row) => {
-        const date = new Date(row.created_at)
-        return date.toLocaleDateString()
-      },
+      accessorFn: (row) => dateTimeFormatter(row.created_at),
       header: 'Created At',
     },
     {
-      accessorFn: (row) => {
-        const date = new Date(row.updated_at)
-        return date.toLocaleDateString()
-      },
+      accessorFn: (row) => dateTimeFormatter(row.updated_at),
       header: 'Updated At',
     },
     {
@@ -61,17 +57,15 @@ const Home = () => {
   }, [limit, offset])
 
   return (
-    <div className="container mt-3 mx-auto px-4 md:px-12">
-      {/* Create new post */}
-      <div className="flex justify-end">
-        <a href="/new-post" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create New Post</a>
+    <div>
+      <Navbar />
+      <div className="container mt-3 mx-auto px-4 md:px-12">
+        <Table
+          columns={columns}
+          data={posts}
+          isLoading={isLoading}
+        />
       </div>
-
-      <Table
-        columns={columns}
-        data={posts}
-        isLoading={isLoading}
-      />
     </div>
   )
 }

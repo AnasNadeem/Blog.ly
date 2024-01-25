@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getPostId, updatePost } from '../Api'
 import { useNavigate } from 'react-router-dom'
+import Navbar from './Components/Navbar'
 
 
 const EditPost = () => {
@@ -46,44 +47,45 @@ const EditPost = () => {
   , [id])
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold text-gray-700 dark:text-gray-200">Edit Post</h1>
-      <form onSubmit={handleEdit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2">
-        {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
-            Title
-          </label>
-          <input
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="title"
-            type="text"
-            placeholder="Title"
-          />
+    <div>
+      <Navbar />
+      <div className="container mx-auto mt-8">
+        <div className="max-w-md mx-auto bg-white p-8 rounded-md shadow-lg">
+
+          <h2 className="text-2xl font-semibold mb-6">Edit Post</h2>
+
+          <form onSubmit={handleEdit}>
+            <div className="mb-4">
+              <label for="title" className="block text-sm font-medium text-gray-600 mb-2">Title</label>
+              <input
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none"
+                id="title"
+                type="text"
+                placeholder="Blog Title"
+              />
+            </div>
+
+            <div className="mb-6">
+              <label for="body" className="block text-sm font-medium text-gray-600 mb-2">Body</label>
+              <textarea
+                onChange={(e) => setBody(e.target.value)}
+                value={body}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none"
+                id="body"
+                type="text"
+                rows={4}
+              />
+            </div>
+
+            <button type="submit" class="bg-gray-800 text-white py-2 w-full rounded-md hover:bg-gray-700 focus:outline-none">
+              Edit Post
+            </button>
+          </form>
+
         </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="body">
-            Body
-          </label>
-          <textarea
-            onChange={(e) => setBody(e.target.value)}
-            value={body}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="body"
-            type="text"
-            placeholder="Body"
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit">
-            Edit Post
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   )
 }
