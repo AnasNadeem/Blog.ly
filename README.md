@@ -52,9 +52,9 @@ You should have the server started on port 3000. Enjoy 🎉
 ### Backend Endpoints:
 
 ``` 
- Blog [GET] - api/posts
- Blog [POST] - api/posts
- Blog [GET:id] - api/posts/:id
- Blog [PUT:id] - api/posts/:id
- Blog [DELETE:id] - api/posts/:id
+ Blog [GET] - /posts
+ Blog [POST] - /posts
+ Blog [GET:id] - /posts/:id
+ Blog [PUT:id] - /posts/:id
+ Blog [DELETE:id] - /posts/:id
 ```

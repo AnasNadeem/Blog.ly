@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://easemylink.com/api/posts";
+export const BASE_URL = "https://easemylink.com/posts";
 const api = axios.create({
     baseURL: BASE_URL,
 });

@@ -13,7 +13,7 @@ from ..models import (
 from ..database import get_db
 
 router = APIRouter(
-    prefix="/api/posts",
+    prefix="/posts",
     tags=["posts"]
 )
 
